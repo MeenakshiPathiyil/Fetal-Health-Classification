@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+
+# Jupyter & cache
+.ipynb_checkpoints/
+__pycache__/
+
+# Data files
+data/*.csv
+data/*.npz
+data/processed_*.csv
+
+# Model files
+models/*.joblib
+models/*.pkl
+
+# VSCode or system
+.DS_Store
+.vscode/
