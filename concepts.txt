@@ -1,0 +1,4 @@
+## Git cocepts
+1. Commit: snapshot of code
+2. Branch: parallel development
+3. Merge: combining work from branches
