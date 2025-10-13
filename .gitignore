@@ -17,3 +17,5 @@ models/*.pkl
 # VSCode or system
 .DS_Store
 .vscode/
+
+models
