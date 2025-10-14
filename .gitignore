@@ -11,11 +11,11 @@ data/*.npz
 data/processed_*.csv
 
 # Model files
-models/*.joblib
+# models/*.joblib
 models/*.pkl
 
 # VSCode or system
 .DS_Store
 .vscode/
 
-models
+# models
