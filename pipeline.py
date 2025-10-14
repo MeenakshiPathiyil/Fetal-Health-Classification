@@ -64,4 +64,5 @@ def predict_fetal_health(input_df: pd.DataFrame):
         }
         results.append(result)
 
-    return results
+    results_df = pd.DataFrame(results)
+    return results_df

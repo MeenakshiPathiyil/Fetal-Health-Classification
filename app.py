@@ -10,26 +10,30 @@ st.write("Upload your fetal monitoring data (CSV) to predict fetal health status
 uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, skiprows=1)
+    df = pd.read_csv(uploaded_file)
     st.write("### Uploaded Data Preview:")
     st.dataframe(df.head())
 
     if st.button("Run Prediction"):
         with st.spinner("Running predictions..."):
-            try:
-                results = predict_fetal_health(df)
-            except ValueError as e:
-                st.error(str(e))
-            else:
-                for i, res in enumerate(results):
-                    st.markdown(f"### Sample {i+1} Prediction")
-                    st.markdown(f"**Predicted Class:** {res['Predicted Class']}")
-                    
-                    st.markdown("**Probabilities:**")
-                    for cls, prob in res["Probabilities"].items():
-                        st.progress(prob)
-                        st.write(f"{cls}: {prob:.2f}")
-                    
-                    st.markdown("**Suggested Care Instructions:**")
-                    st.info(res["Care Suggestion"])
-                    st.markdown("---")
+            results_df = predict_fetal_health(df)
+
+        st.success("Prediction completed successfully!")
+
+        # Show preview in Streamlit
+        st.write("### Prediction Results:")
+        st.dataframe(results_df)
+
+        # Save results to a CSV file (in memory)
+        csv = results_df.to_csv(index=False).encode("utf-8")
+
+        # Provide download button
+        st.download_button(
+            label="Download Results as CSV",
+            data=csv,
+            file_name="fetal_health_predictions.csv",
+            mime="text/csv",
+        )
+
+
+
