@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+# Generate SHAP explanations for a given sample
 def explain_with_shap(model, X_train, sample, class_idx=0):
-    """Generate SHAP explanation for a given sample."""
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X_train)
     shap.initjs()
@@ -18,24 +18,8 @@ def explain_with_shap(model, X_train, sample, class_idx=0):
     )
     return shap_values
 
-
-def explain_with_lime(model, X_train, sample):
-    """Generate LIME explanation for a given sample."""
-    explainer = lime.lime_tabular.LimeTabularExplainer(
-        training_data=np.array(X_train),
-        feature_names=X_train.columns,
-        mode='classification'
-    )
-    exp = explainer.explain_instance(
-        data_row=sample.iloc[0],
-        predict_fn=model.predict_proba
-    )
-    exp.show_in_notebook(show_table=True)
-    return exp
-
-
+# Plot feature importance for tree based models
 def show_feature_importance(model, X_train):
-    """Plot feature importance for tree-based models."""
     if hasattr(model, "feature_importances_"):
         importances = model.feature_importances_
         feat_importance = pd.DataFrame({
