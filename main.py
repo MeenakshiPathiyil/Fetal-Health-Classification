@@ -16,6 +16,9 @@ if y_test.shape[1] == 1:
 # Predict fetal health classes
 predictions = model.predict(X_test)
 
+# Shift predicted values by +1
+predictions = predictions + 1
+
 # Evaluate model performance
 acc = accuracy_score(y_test, predictions)
 print(f"Accuracy: {acc:.4f}")
@@ -24,9 +27,9 @@ print("\nConfusion Matrix:\n", confusion_matrix(y_test, predictions))
 
 # Care recommendation mapping
 def recommend_care(pred):
-    if pred == 0:
+    if pred == 1:
         return "Routine monitoring (low risk)"
-    elif pred == 1:
+    elif pred == 2:
         return "Enhanced observation / further testing"
     else:
         return "Immediate medical attention (high risk)"
